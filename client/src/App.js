@@ -1,19 +1,22 @@
 import './App.css';
 import Header from './Header';
+import Layout from './Layout';
 import Post from './Post';
 import {Route,Routes} from 'react-router-dom';
+import IndexPage from './pages/index-page';
+import LoginPage from './pages/login-page';
 
 function App() {
   return (
       <Routes>
+        <Route path='/' element ={<Layout/>}>
         <Route index element={
-          <main>
-          <Header/>
-          <Post/>
-          <Post/>
-          <Post/>
-        </main>
+          <IndexPage/>
         }/>
+        <Route path='/login' element = {
+          <LoginPage/>
+        }/>
+        </Route>
       </Routes>
       
   );
