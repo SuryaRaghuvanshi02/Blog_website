@@ -1,0 +1,81 @@
+body{
+  color: #222;
+}
+main{
+  padding: 10px;
+  max-width: 700px;
+  margin:0 auto;
+}
+a{ 
+  text-decoration: none;
+  /* for removing the underline from the header anchor tags */
+
+  color: inherit;
+}
+img{
+  max-width: 100%;
+
+}
+header{
+  display: flex; 
+  /* for having content in the same line for header */
+
+  justify-content: space-between;
+  /* for adding space between the header logo and login and register */
+
+  margin-bottom: 50px;
+
+  margin-top: 20px;
+  /* for bringing the items in center for the header bar */
+  align-items: center;
+}
+
+/* Now we are calling the a tag which is used in header */
+header a{ 
+  text-decoration: none;
+  /* for removing the underline from the header anchor tags */
+
+  color: inherit;
+}
+
+/* calling the logo part of header */
+header a.logo{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* calling the navbar part of the header */
+header nav{
+  display: flex;
+  gap: 15px;
+}
+/* Targeting a singular post in the website */
+div.post{
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+div.post div.text.h2{
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+div.post p.info{
+  margin: 6px 0;
+  color: #888;
+  font-size: .7rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+}
+
+div.post p.info a.author{
+  color: #333;
+}
+
+div.post p.summary{
+  margin: 10px 0;
+  line-height: 1.4rem;
+}
