@@ -61,7 +61,12 @@ app.post('/login',async (req,res)=>{
         // logged in
         jwt.sign({username,id:userDoc._id}, secret,{},(err,token)=>{
             if(err) throw err;
-            res.cookie('token',token).json('ok');
+            res.cookie('token',token).json(
+                {
+                    id:userDoc._id,
+                    username,
+                }
+            );
         });
         // res.json();
     }
@@ -79,5 +84,9 @@ app.get('/profile',(req,res)=>{
     })
 })
 
+
+app.post('/logout',(req,res)=>{
+    res.cookie('token','').json('ok');
+});
 app.listen(4000);
 // We are using await where there are async function 
