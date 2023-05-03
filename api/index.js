@@ -3,6 +3,7 @@ const cors = require('cors');
 const { default: mongoose } = require('mongoose');
 const User = require('./models/User')
 const bcrypt = require('bcryptjs');
+const cookieParser = require('cookie-parser')
 
 const app=express();
 const jwt = require('jsonwebtoken')
@@ -14,6 +15,10 @@ const secret = 'sedjbfghliesrbgaeg';
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 // for parsing the json friend request 
 app.use(express.json());
+
+// cookie parser
+app.use(cookieParser());
+
 // Connecting to our mongoose database
 mongoose.connect('mongodb+srv://Blog:Pir8vSzq5gsalBUp@cluster0.l1ymcbo.mongodb.net/?retryWrites=true&w=majority');
 // we are using nodemon as while using nodemon we dont need to restart
@@ -63,6 +68,15 @@ app.post('/login',async (req,res)=>{
     else{
         res.status(400).json('Wrong Credentials ')
     }
+});
+
+
+app.get('/profile',(req,res)=>{
+    const {token} = req.cookies;
+    jwt.verify(token,secret,{},(err,info)=>{
+        if(err) throw err;
+        res.json(info);
+    })
 })
 
 app.listen(4000);
