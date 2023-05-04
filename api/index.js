@@ -23,6 +23,7 @@ app.use(express.json());
 // cookie parser
 app.use(cookieParser());
 
+app.use('/uploads',express.static(__dirname+'/uploads'))
 // Connecting to our mongoose database
 mongoose.connect('mongodb+srv://Blog:Pir8vSzq5gsalBUp@cluster0.l1ymcbo.mongodb.net/?retryWrites=true&w=majority');
 // we are using nodemon as while using nodemon we dont need to restart
@@ -85,7 +86,7 @@ app.get('/profile',(req,res)=>{
     jwt.verify(token,secret,{},(err,info)=>{
         if(err) throw err;
         res.json(info);
-    })
+    });
 })
 
 
@@ -99,16 +100,28 @@ app.post('/post',uploadMiddleware.single('file'),async (req,res)=>{
     const ext = parts[parts.length - 1];
     const newPath = path+'.'+ext;
     fs.renameSync(path,newPath);
-    const{title,summary,content} =req.body;
+    
+    const {token} = req.cookies;
+    jwt.verify(token,secret,{},async(err,info)=>{
+        if(err) throw err;
+        const{title,summary,content} =req.body;
     const postDoc = await Post.create({
         title,
         summary,
         content,
         cover:newPath,
+        author:info.id,
     })
-
-
     res.json(postDoc);
+    })
 });
+
+app.get('/post',async (req,res)=>{
+    const posts = await Post.find()
+    .populate('author', ['username'])
+    .sort({createdAt:-1})
+    .limit(20)
+    res.json(posts);
+})
 app.listen(4000);
 // We are using await where there are async function 

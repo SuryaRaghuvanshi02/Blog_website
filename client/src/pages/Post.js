@@ -1,14 +1,17 @@
-export default function Post(){
-    return(
+import {formatISO9075} from "date-fns";
+export default function Post({title,summary,cover,content,createdAt,author}){
+
+  return(
         <div className="post">
-          <div className="image"><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*esLAtPgM_LTWzPYQfCQr8g.jpeg" alt="" /></div>
+          <div className="image">
+            <img src={'http://localhost:4000/'+cover} alt="" /></div>
           <div className="texts">
-            <h2>Link Prediction on Distributed Environment: A Comparison between Support Vector Machines and Neural Networks</h2>
+            <h2>{title}</h2>
             <p className="info">
-              <a href="" className="autor">Vansh Gupta</a>
-              <time>2023-04-25 16:45</time>
+              <a href="" className="autor">{author.username}</a>
+              <time>{formatISO9075(new Date(createdAt))}</time>
             </p>
-            <p className="summary">Websites are a ubiquitous aspect of our everyday lives in the modern world, from social media to itinerary.</p>
+            <p className="summary">{summary}</p>
           </div>
         </div>
     );
