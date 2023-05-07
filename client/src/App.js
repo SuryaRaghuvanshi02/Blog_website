@@ -9,6 +9,7 @@ import RegisterPage from './pages/register-page';
 import { UserContext, UserContextProvider } from './UserContext';
 import CreatePost from './pages/CreatePost';
 import PostPage from './pages/Post-page';
+import EditPost from './pages/editPost';
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
         }/>
         <Route path='/post/:id' element = {
           <PostPage/>
+        }/>
+        <Route path='/edit/:id' element = {
+          <EditPost/>
         }/>
         </Route>
       </Routes>
